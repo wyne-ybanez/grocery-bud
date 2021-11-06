@@ -7,12 +7,17 @@ function App() {
   const [list, setList] = useState([])
   const [isEditing, setIsEditing] = useState(false)
   const [editID, setEditID] = useState(null)
-  const [alert, setAlert] = useState({ show: false, msg: '', type: '' })
+  const [alert, setAlert] = useState({
+    show: false,
+    msg: '',
+    type: '',
+  })
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('Hello')
     if (!item) {
       // display alert
+      showAlert(true, 'danger', 'please enter an item')
     } else if (item && isEditing) {
       // deal with edit
     } else {
@@ -23,10 +28,14 @@ function App() {
     }
   }
 
+  const showAlert = (show = false, type = '', msg = '') => {
+    setAlert({ show, type, msg }) //default values
+  }
+
   return (
     <section className="section-center">
       <form className="grocery-form" onSubmit={handleSubmit}>
-        {alert.show && <Alert />}
+        {alert.show && <Alert {...alert} removeAlert={showAlert} />}
         <div className="form-control">
           <input
             type="text"
