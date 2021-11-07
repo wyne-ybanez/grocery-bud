@@ -38,10 +38,18 @@ function App() {
     setList([])
   }
 
+  const removeItem = (id) => {
+    /* Display items that does not have the id we are passing through,
+       hence, filter for items without the id passed in */
+
+    showAlert(true, 'danger', 'item removed')
+    setList(list.filter((item) => item.id !== id))
+  }
+
   return (
     <section className="section-center">
       <form className="grocery-form" onSubmit={handleSubmit}>
-        {alert.show && <Alert {...alert} removeAlert={showAlert} />}
+        {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
         <div className="form-control">
           <input
             type="text"
@@ -57,7 +65,7 @@ function App() {
       </form>
       {list.length > 0 && (
         <div className="grocery-container">
-          <List items={list} />
+          <List items={list} removeItem={removeItem} />
           <button className="clear-btn" onClick={clearList}>
             Clear Items
           </button>
