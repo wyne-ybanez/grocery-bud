@@ -76,6 +76,7 @@ function App() {
     setName(specificItem.title)
   }
 
+  // Setting local storage
   useEffect(() => {
     localStorage.setItem('list', JSON.stringify(list))
   }, [list])
